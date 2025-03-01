@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Кнопки</title>
+    <style>
+        body { background-color: white; color: black; text-align: center; }
+        button { background-color: green; border: none; padding: 10px 20px; font-size: 18px; margin: 10px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Выберите действие</h1>
+    <a href="{% url 'home' %}"><button>На главную</button></a>
+    <a href="{% url 'sql_page' %}"><button>Перейти на страницу sql-инъекций</button></a>
+</body>
+</html>
