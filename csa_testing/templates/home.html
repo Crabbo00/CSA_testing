@@ -4,12 +4,41 @@
     <meta charset="UTF-8">
     <title>Главная</title>
     <style>
-        body { background-color: white; color: black; text-align: center; }
-        a { color: green; font-size: 20px; }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        a {
+            color: #4caf50;
+            font-size: 20px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: #45a049;
+        }
     </style>
 </head>
 <body>
-    <h1>Добро пожаловать!</h1>
-    <a href="{% url 'buttons_page' %}">Перейти на страницу кнопок</a>
+    <div class="container">
+        <h1>Добро пожаловать!</h1>
+        <a href="{% url 'buttons_page' %}">Перейти на страницу кнопок</a>
+    </div>
 </body>
 </html>
