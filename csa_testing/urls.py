@@ -22,7 +22,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
     path('buttons/', views.buttons_page, name='buttons_page'),
-    path('sql/', views.sql_page, name='sql_page'),
+    path('sql/', views.sql, name='sql'),
     path('fishing/', views.fishing_page_doc, name='fishing_doc'),
-    path('fishing/test', views.fishing_page_test, name='fishing_test')
+    path('fishing/test', views.fishing_page_test, name='fishing_page_test'),
+    path('fishing/result', views.fishing_result, name='fishing_result'),
+
 ]
