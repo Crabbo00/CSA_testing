@@ -44,8 +44,10 @@
     <div class="container">
         <h1>Выберите действие</h1>
         <a href="{% url 'home' %}"><button>На главную</button></a>
-        <a href="{% url 'sql' %}"><button>Перейти на страницу SQL-инъекций</button></a>
+        <a href="{% url 'sql_doc' %}"><button>Перейти на страницу SQL-инъекций</button></a>
         <a href="{% url 'fishing_doc' %}"><button>Перейти на страницу фишинга</button></a>
+        <a href="{% url 'xss_doc' %}"><button>Перейти на страницу XSS</button></a>
+        <a href="{% url 'ddos_doc' %}"><button>Перейти на страницу DDoS атак</button></a>
     </div>
 </body>
 </html>

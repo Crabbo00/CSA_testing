@@ -160,96 +160,18 @@ SELECT * FROM users WHERE username = '' OR '1'='1'-- ' AND password = '$password
             </ul>
         </div>
 
-        <div class="demo-section">
-            <h2>Демонстрация (только для обучения!)</h2>
-            <p>Эта демонстрация работает на специально созданном уязвимом сервере. Никогда не пробуйте подобные атаки на реальных сайтах!</p>
-
-            <div>
-                <input type="text" id="sql-query" placeholder="Введите SQL запрос">
-                <button onclick="executeQuery()">Выполнить</button>
-            </div>
-
-            <div class="code">
-                Попробуйте ввести:
-                SELECT * FROM auth_group
-            </div>
-
-            <h3>Результаты:</h3>
-            <div id="sql-results">Здесь будут отображаться результаты запроса...</div>
-        </div>
-
         <div class="warning">
-            <h2>Важно!</h2>
-            <p>Эта демонстрация создана исключительно в образовательных целях. Использование SQL-инъекций против систем без разрешения является незаконным и может привести к уголовной ответственности.</p>
+                <h2>Демонстрация (только для обучения!)</h2>
+                <p>Эта демонстрация работает на специально созданном уязвимом сервере. Никогда не пробуйте подобные атаки на реальных сайтах!</p>
+                <a href="{% url 'login_sql' %}"><button onclick="executeQuery()">Попробовать</button></a>
+                <h2>Важно!</h2>
+                <p>Эта демонстрация создана исключительно в образовательных целях. Использование SQL-инъекций против систем без разрешения является незаконным и может привести к уголовной ответственности.</p>
+            </div>
         </div>
 
         <a href="{% url 'buttons_page' %}"><button>Назад</button></a>
     </div>
 
-    <script>
-        function executeQuery() {
-            const query = document.getElementById('sql-query').value;
-            const resultsDiv = document.getElementById('sql-results');
 
-            if (!query.trim()) {
-                resultsDiv.innerHTML = '<span class="error">Введите SQL-запрос</span>';
-                return;
-            }
-
-            resultsDiv.innerHTML = '<span style="color:#666">Выполнение запроса...</span>';
-
-            fetch('{% url "sql" %}', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'X-CSRFToken': '{{ csrf_token }}'
-                },
-                body: `query=${encodeURIComponent(query)}`
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Ошибка сервера');
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.error) {
-                    resultsDiv.innerHTML = `<span class="error">Ошибка: ${data.error}</span>`;
-                } else if (data.results) {
-                    resultsDiv.innerHTML = formatResults(data.results);
-                } else {
-                    resultsDiv.innerHTML = `<span style="color:#4CAF50">${data.message || "Запрос выполнен успешно"}</span>`;
-                }
-            })
-            .catch(error => {
-                resultsDiv.innerHTML = `<span class="error">Ошибка: ${error.message}</span>`;
-            });
-        }
-
-        function formatResults(results) {
-            if (!results || results.length === 0) {
-                return '<span style="color:#666">Нет данных</span>';
-            }
-
-            let html = '<table>';
-
-            html += '<tr>';
-            for (let key in results[0]) {
-                html += `<th>${key}</th>`;
-            }
-            html += '</tr>';
-
-            results.forEach(row => {
-                html += '<tr>';
-                for (let key in row) {
-                    html += `<td>${row[key] !== null ? row[key] : 'NULL'}</td>`;
-                }
-                html += '</tr>';
-            });
-
-            html += '</table>';
-            return html;
-        }
-    </script>
 </body>
 </html>

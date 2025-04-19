@@ -22,9 +22,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
     path('buttons/', views.buttons_page, name='buttons_page'),
-    path('sql/', views.sql, name='sql'),
+    path('sql/', views.sql, name='sql_doc'),
     path('fishing/', views.fishing_page_doc, name='fishing_doc'),
     path('fishing/test', views.fishing_page_test, name='fishing_page_test'),
     path('fishing/result', views.fishing_result, name='fishing_result'),
+    path('sql/login', views.login_sql, name='login_sql'),
+    path('xss/', views.xss_page, name='xss_doc'),
+    path('xss/test', views.xss_page_test, name='xss_demo_page'),
+    path('ddos', views.ddos_page, name='ddos_doc'),
 
 ]
