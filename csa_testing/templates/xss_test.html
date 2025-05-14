@@ -1,12 +1,117 @@
+<!-- templates/xss.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>xss test</title>
+  <meta charset="UTF-8">
+  <title>Демонстрация XSS</title>
+  <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            display: flex;
+        }
+        .login-container {
+            width: 50%;
+            padding: 20px;
+        }
+        button, input[type="submit"] {
+            background-color: #4caf50;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            color: white;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover, input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .users-table {
+            width: 45%;
+            padding: 20px;
+            background-color: #f5f5f5;
+            margin-left: 20px;
+        }
+        form { margin: 20px 0; }
+        input[type="text"] {
+            padding: 8px;
+            margin: 5px 0;
+            width: 100%;
+        }
+        .message {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th { background-color: #f2f2f2; }
+        .hint {
+            background-color: #fffde7;
+            padding: 15px;
+            margin-top: 20px;
+            border-left: 4px solid #ffd600;
+        }
+        .warning { color: #d32f2f; font-weight: bold; }
+  </style>
 </head>
 <body>
-<img src="https://media.istockphoto.com/id/1202956156/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%81%D0%BC%D0%B0%D0%B9%D0%BB%D0%B8%D0%BA.jpg?s=612x612&w=0&k=20&c=uKns1a970rmF3090M79EKJ6urzsuNRrETaaTezrtGbI=">
-<p>еще не сделал</p>
-<a href="{% url 'buttons_page' %}"><button>Назад</button></a>
+  <div class="login-container">
+    <h2>Введите комментарий (уязвимо к XSS)</h2>
+    <form method="get">
+      <label for="id_comment">Комментарий:</label><br>
+      <input type="text" id="id_comment" name="comment"
+             placeholder="Например, &lt;script&gt;alert('XSS')&lt;/script&gt;"/><br>
+      <input type="submit" value="Отправить">
+    </form>
+
+    {% if comment %}
+    <div class="message">
+      Небезопасный вывод (выполняется только один раз):<br>
+      {{ comment|safe }}
+    </div>
+    {% endif %}
+
+    <div class="hint">
+      <h3>Примеры XSS:</h3>
+      <ul>
+        <li><code>&lt;script&gt;alert('Alert')&lt;/script&gt;</code> — вызывает всплывающее окно сверху.</li>
+        <li><code>&lt;img src=x onerror="alert('Img XSS')"&gt;</code> — сработает при ошибке загрузки.</li>
+        <li><code>&lt;a href="javascript:alert('Попался')"&gt;Click&lt;/a&gt;</code> — при клике.</li>
+        <li><code>&lt;img src="ссылка на картинку"&gt;</code> — загружает картинку.</li>
+      </ul>
+    </div>
+
+    <a href="{% url 'buttons_page' %}"><button>Назад</button></a>
+  </div>
+
+  <div class="users-table">
+    <h2>Все комментарии (экранированные)</h2>
+    <table>
+      <thead>
+        <tr><th>#</th><th>Комментарий</th></tr>
+      </thead>
+      <tbody>
+        {% if comments %}
+          {% for c in comments %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ c }}</td>
+          </tr>
+          {% endfor %}
+        {% else %}
+          <tr><td colspan="2"><em>Пока нет комментариев</em></td></tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
 </body>
 </html>

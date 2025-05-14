@@ -47,13 +47,13 @@
         <div>Логин: {{ username }}</div>
         <div>Пароль: {{ password }}</div>
 
-        <div class="countdown">Перенаправление через <span id="timer">3</span> секунды...</div>
+        <div class="countdown">Перенаправление через <span id="timer">5</span> секунды...</div>
         <p>Если не хотите быть перенаправленными, <a href="{% url 'buttons_page' %}">нажмите здесь</a></p>
     </div>
 
     <script>
         // Анимация таймера
-        let seconds = 3;
+        let seconds = 5;
         const timerElement = document.getElementById('timer');
 
         const interval = setInterval(() => {

@@ -1,7 +1,6 @@
 from django.db import connection
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
 from .forms import LoginForm
 
 def home(request):
@@ -88,9 +87,18 @@ def xss_page(request):
     return render(request, 'xss_doc.html', context)
 
 def xss_page_test(request):
-    context = {}
-    return render(request, 'xss_test.html', context)
+    comment = request.GET.get('comment', '').strip()
+    comments = request.session.get('comments', [])
+    if comment:
+        comments.append(comment)
+        request.session['comments'] = comments
+    return render(request, 'xss_test.html', {
+        'comment': comment,
+        'comments': comments,
+    })
 
 def ddos_page(request):
     context = {}
     return render(request, 'ddos_doc.html', context)
+
+
