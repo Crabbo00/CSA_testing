@@ -52,8 +52,13 @@
         input[type="submit"]:hover {
             background-color: #45a049;
         }
-        .message {
+        .message-incorrect {
             color: red;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .message-correct {
+            color: green;
             margin-top: 10px;
             font-weight: bold;
         }
@@ -100,14 +105,20 @@
 
         {% if message %}
         <div class="message">
-            Результат: {{ message }}
             {% if message == 'Correct Pass' %}
+                <div class="message-correct">
+                    Результат: {{ message }}
+                </div>
+            {% else %}
+                <div class="message-incorrect">
+                    Результат: {{ message }}
+                </div>
             {% endif %}
         </div>
         {% endif %}
 
         <div class="hint">
-            <h3>Как провести атаку:</h3>
+            <h3>Как проводится атака:</h3>
             <ol>
                 <li>Введите любой существующий логин из таблицы справа</li>
                 <li>В поле пароля введите: <code>' OR '1'='1</code></li>

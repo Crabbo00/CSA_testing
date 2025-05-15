@@ -110,6 +110,13 @@
             color: #f44336;
             font-weight: bold;
         }
+        .demo {
+            background-color: #e3f2fd;
+            padding: 10px;
+            border-left: 4px solid #2196F3;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body>
@@ -160,16 +167,17 @@ SELECT * FROM users WHERE username = '' OR '1'='1'-- ' AND password = '$password
             </ul>
         </div>
 
-        <div class="warning">
+        <div class="demo">
                 <h2>Демонстрация (только для обучения!)</h2>
                 <p>Эта демонстрация работает на специально созданном уязвимом сервере. Никогда не пробуйте подобные атаки на реальных сайтах!</p>
                 <a href="{% url 'login_sql' %}"><button onclick="executeQuery()">Попробовать</button></a>
                 <h2>Важно!</h2>
                 <p>Эта демонстрация создана исключительно в образовательных целях. Использование SQL-инъекций против систем без разрешения является незаконным и может привести к уголовной ответственности.</p>
             </div>
+            <a href="{% url 'buttons_page' %}"><button>Назад</button></a>
         </div>
 
-        <a href="{% url 'buttons_page' %}"><button>Назад</button></a>
+
     </div>
 
 
